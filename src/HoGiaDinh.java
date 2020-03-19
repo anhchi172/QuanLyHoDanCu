@@ -11,7 +11,9 @@ public class HoGiaDinh {
             System.out.println(n.toString());
     }
 
-
+    public int getSoNguoi(){
+        return al.size();
+    }
 
     public void addNguoi(Nguoi n){
         al.add(n);
