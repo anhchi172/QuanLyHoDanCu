@@ -5,12 +5,11 @@ public class QuanLyHoDanCuTester {
         Scanner scan = new Scanner(System.in);
         System.out.print("Nhap so ho dan: ");
         int o = checkInput(1, Integer.MAX_VALUE);
-        KhuPho k = new KhuPho(o);
+        KhuPho k = new KhuPho();
         for (int i = 0; i<o; i++) {
             //System.out.print("Nhap so nguoi trong ho gia dinh: ");
             //int m = checkInput(1, Integer.MAX_VALUE);
             HoGiaDinh h = new HoGiaDinh();
-            k[i] = h;
             int act;
             do {
                 System.out.println("Chon thao tac can thuc hien:\n1. Them thanh vien\n2. Hoan thanh");
@@ -20,10 +19,13 @@ public class QuanLyHoDanCuTester {
                     h.addNguoi(n);
                 }
             } while (act != 2);
+            if (h.getSoNguoi()!= 0)
+                k.addHoGiaDinh(h);
         }
-            System.out.println("Chon thao tac can thuc hien:\n1. Hien thi \n2.Thoat");
+
             int choice;
             do {
+                System.out.println("Chon thao tac can thuc hien:\n1. Hien thi \n2.Thoat");
                 choice = checkInput(1, 2);
                 if (choice == 1)
                     k.hienThi();
@@ -35,11 +37,18 @@ public class QuanLyHoDanCuTester {
     }
     private static int checkInput(int a, int b){
         Scanner scan = new Scanner (System.in);
-        int choice = scan.nextInt();
+        int choice;
+        try{
+             choice = scan.nextInt();
+            while (choice<a || choice>b){
+                System.out.println("Du lieu nhap khong phu hop voi yeu cau. Vui long nhap lai:");
+                choice = scan.nextInt();
+            }
 
-        while (choice<a || choice>b){
-            System.out.println("Du lieu nhap khong phu hop voi yeu cau. Vui long nhap lai:");
-            choice = scan.nextInt();
+        }
+        catch (Exception e){
+            System.out.println("Du lieu nhap ko phu hop. Vui long nhap lai");
+            choice = checkInput(a,b);
         }
 
         return choice;
@@ -52,7 +61,7 @@ public class QuanLyHoDanCuTester {
         System.out.print("Nhap tuoi: ");
         int tuoi = checkInput(1, Integer.MAX_VALUE);
         System.out.print("Nhap nghe nghiep: ");
-        scan.nextLine();
+       // scan.nextLine();
         String ngheNghiep = scan.nextLine();
         System.out.print("Nhap so CMND: ");
         int soCMND = checkInput(1, Integer.MAX_VALUE);
